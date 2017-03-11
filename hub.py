@@ -1,17 +1,8 @@
-import os
-
 import paho.mqtt.client as mqtt
-
 import settings
-
-MQTT_USERNAME = os.environ.get("MQTT_USERNAME")
-MQTT_PASSWORD = os.environ.get("MQTT_PASSWORD")
-MQTT_HOST = os.environ.get("MQTT_HOST")
-MQTT_PORT = os.environ.get("MQTT_PORT")
 
 
 # Define event callbacks
-
 def on_connect(client, userdata, rc):
     if rc == 0:
         print("Connected successfully.")
@@ -41,8 +32,8 @@ mqttclient.on_subscribe = on_subscribe
 mqttclient.on_message = on_message
 
 # Connect
-mqttclient.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)
-mqttclient.connect(MQTT_HOST, int(MQTT_PORT))
+mqttclient.username_pw_set(settings.MQTT_USERNAME, settings.MQTT_PASSWORD)
+mqttclient.connect(settings.MQTT_HOST, int(settings.MQTT_PORT))
 
 # Start subscription
 mqttclient.subscribe('rgb/red')
