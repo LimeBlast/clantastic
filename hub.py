@@ -1,5 +1,3 @@
-import time
-
 import paho.mqtt.client as mqtt
 import unicornhat as unicorn
 
@@ -12,10 +10,6 @@ def on_connect(client, userdata, rc):
         print("Connected successfully.")
     else:
         print("Connection failed. rc= " + str(rc))
-
-
-def on_publish(client, userdata, mid):
-    print("Message " + str(mid) + " published.")
 
 
 def on_subscribe(client, userdata, mid, granted_qos):
@@ -42,7 +36,6 @@ mqttclient = mqtt.Client()
 
 # Assign event callbacks
 mqttclient.on_connect = on_connect
-mqttclient.on_publish = on_publish
 mqttclient.on_subscribe = on_subscribe
 mqttclient.on_message = on_message
 
@@ -55,7 +48,7 @@ mqttclient.subscribe('rgb/+')
 
 unicorn.set_layout(unicorn.AUTO)
 unicorn.rotation(0)
-unicorn.brightness(0.5)
+unicorn.brightness(1)
 width, height = unicorn.get_shape()
 rgb = {'red': 0, 'green': 0, 'blue': 0}
 
