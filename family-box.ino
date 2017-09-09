@@ -82,6 +82,11 @@ void loop() {
 // is received from Adafruit IO. it was attached to
 // the command feed in the setup() function above.
 void handleMessage(AdafruitIO_Data *data) {
+  Serial.print("received <- ");
+  Serial.print(data->toInt());
+  Serial.print(" from ");
+  Serial.println(data->feedName());
+  
   if (String(data->feedName()).equalsIgnoreCase("daniel")) {
     green = data->toInt();
   } else if (String(data->feedName()).equalsIgnoreCase("jessica")) {
@@ -89,11 +94,6 @@ void handleMessage(AdafruitIO_Data *data) {
   } else if (String(data->feedName()).equalsIgnoreCase("emily")) {
     red = data->toInt();
   }
-
-  Serial.print("received <- ");
-  Serial.print(data->toInt());
-  Serial.print(" from ");
-  Serial.println(data->feedName());
     
   //change NeoPixel color here using format strip.Color(R,G,B)
   for(int i=0; i<strip.numPixels(); i++) { //turn off all NeoPixels
