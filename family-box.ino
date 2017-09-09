@@ -143,11 +143,11 @@ void handleMessage(AdafruitIO_Data *data) {
 }
 
 void handleColour(AdafruitIO_Data *data) {
-  if (data->feedName() == "daniel") {
+  if (String(data->feedName()).equalsIgnoreCase("daniel")) {
     green = data->toInt();
-  } else if (data->feedName() == "jessica") {
+  } else if (String(data->feedName()).equalsIgnoreCase("jessica")) {
     blue = data->toInt();
-  } else if (data->feedName() == "emily") {
+  } else if (String(data->feedName()).equalsIgnoreCase("emily")) {
     red = data->toInt();
   }
 
