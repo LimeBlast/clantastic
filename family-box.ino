@@ -30,9 +30,9 @@ AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIXELS_PIN, NEO_GRB + NEO_KHZ800);
 
-int red = 0;
-int green = 0;
-int blue = 0;
+int red = 255;
+int green = 255;
+int blue = 255;
 char hex[8] = {0};
 
 // set up the 'family-box' group
@@ -41,7 +41,7 @@ AdafruitIO_Group *group = io.group("family-box");
 void setup() {
   strip.setBrightness(BRIGHTNESS);
   strip.begin();
-  strip.show(); // Initialize all pixels to 'off'
+  lightStrip(red, green, blue);
 
   // start the serial connection
   Serial.begin(115200);
@@ -95,15 +95,20 @@ void handleMessage(AdafruitIO_Data *data) {
     red = data->toInt();
   }
     
-  //change NeoPixel color here using format strip.Color(R,G,B)
-  for(int i=0; i<strip.numPixels(); i++) { //turn off all NeoPixels
-    strip.setPixelColor(i, strip.Color(red,green,blue));
-  }
-  strip.show(); //always remember to call strip.show() to display changes
-
+  lightStrip(red, green, blue);
+  
   sprintf(hex,"#%02X%02X%02X",red,green,blue);
   Serial.println(hex); //Print the string.
 
 //  group->set("hex", hex);
 //  group->save();
 }
+
+void lightStrip(int r, int g, int b) {
+  //change NeoPixel color here using format strip.Color(R,G,B)
+  for(int i=0; i<strip.numPixels(); i++) { //turn off all NeoPixels
+    strip.setPixelColor(i, strip.Color(r,g,b));
+  }
+  strip.show(); //always remember to call strip.show() to display changes  
+}
+
