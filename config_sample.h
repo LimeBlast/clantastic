@@ -1,14 +1,14 @@
 /* Copy this file, rename it `config.h`, then set the relevant data below */
 
-/************************ Adafruit IO Configuration *******************************/
+/************************* WiFi Access Point *********************************/
 
-// visit io.adafruit.com if you need to create an account,
-// or if you need your Adafruit IO key.
-#define IO_USERNAME    ""
-#define IO_KEY         ""
+#define WLAN_SSID       ""
+#define WLAN_PASS       ""
 
-/******************************* WIFI Configuration **************************************/
+/************************* Adafruit.io Setup *********************************/
 
-#define WIFI_SSID       ""
-#define WIFI_PASS       ""
+#define AIO_SERVER      "io.adafruit.com"
+#define AIO_SERVERPORT  1883                   // use 8883 for SSL
+#define AIO_USERNAME    ""
+#define AIO_KEY         ""
 
