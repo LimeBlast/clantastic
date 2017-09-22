@@ -40,7 +40,7 @@ def main():
         mqttclient.publish('rgb/red', red, retain=True)
         mqttclient.publish('rgb/green', green, retain=True)
         mqttclient.publish('rgb/blue', blue, retain=True)
-        time.sleep(0.1)
+        time.sleep(0.3)
 
 
 if __name__ == '__main__':
