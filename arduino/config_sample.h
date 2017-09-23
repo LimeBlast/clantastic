@@ -7,8 +7,8 @@
 
 /************************* Adafruit.io Setup *********************************/
 
-#define AIO_SERVER      "io.adafruit.com"
-#define AIO_SERVERPORT  1883                   // use 8883 for SSL
-#define AIO_USERNAME    ""
-#define AIO_KEY         ""
+#define MQTT_SERVER      "io.adafruit.com"
+#define MQTT_SERVERPORT  1883                   // use 8883 for SSL
+#define MQTT_USERNAME    ""
+#define MQTT_KEY         ""
 
