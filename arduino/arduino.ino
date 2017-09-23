@@ -34,9 +34,9 @@ Adafruit_MQTT_Client mqtt(&client, MQTT_SERVER, MQTT_SERVERPORT, MQTT_USERNAME, 
 /****************************** Feeds ***************************************/
 
 // Setup a feed called 'daniel' for subscribing to changes.
-Adafruit_MQTT_Subscribe daniel  = Adafruit_MQTT_Subscribe(&mqtt, "family-box/daniel");
-Adafruit_MQTT_Subscribe jessica = Adafruit_MQTT_Subscribe(&mqtt, "family-box/jessica");
-Adafruit_MQTT_Subscribe emily   = Adafruit_MQTT_Subscribe(&mqtt, "family-box/emily");
+Adafruit_MQTT_Subscribe daniel  = Adafruit_MQTT_Subscribe(&mqtt, "clantastic/daniel");
+Adafruit_MQTT_Subscribe jessica = Adafruit_MQTT_Subscribe(&mqtt, "clantastic/jessica");
+Adafruit_MQTT_Subscribe emily   = Adafruit_MQTT_Subscribe(&mqtt, "clantastic/emily");
 
 /******************************* LEDs ***************************************/
 
@@ -155,5 +155,11 @@ void lightStrip(int r, int g, int b) {
   for(int i=0; i<strip.numPixels(); i++) { //turn off all NeoPixels
     strip.setPixelColor(i, strip.Color(r,g,b));
   }
-  strip.show(); //always remember to call strip.show() to display changes  
+  strip.show(); //always remember to call strip.show() to display changes
+  Serial.print("Setting LED to R: ");
+  Serial.print(r);
+  Serial.print(", G: ");
+  Serial.print(g);
+  Serial.print(", B: ");
+  Serial.println(b);
 }
