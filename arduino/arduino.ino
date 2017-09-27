@@ -33,6 +33,7 @@ Adafruit_MQTT_Client mqtt(&client, MQTT_SERVER, MQTT_SERVERPORT, MQTT_USERNAME, 
 Adafruit_MQTT_Subscribe daniel = Adafruit_MQTT_Subscribe(&mqtt, "clantastic/daniel");
 Adafruit_MQTT_Subscribe jessica = Adafruit_MQTT_Subscribe(&mqtt, "clantastic/jessica");
 Adafruit_MQTT_Subscribe emily = Adafruit_MQTT_Subscribe(&mqtt, "clantastic/emily");
+Adafruit_MQTT_Publish colour = Adafruit_MQTT_Publish(&mqtt, "clantastic/colour");
 
 /****************************** LEDs ****************************************/
 
@@ -43,7 +44,7 @@ char hex[8] = {0};
 
 #define PIXELS_PIN 15
 #define NUM_LEDS 8
-#define BRIGHTNESS 50
+#define BRIGHTNESS 100
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIXELS_PIN, NEO_GRB + NEO_KHZ800);
 
@@ -125,6 +126,8 @@ void updateLEDs() {
 
   Serial.print("Setting LED strip to: ");
   Serial.println(hex);
+
+  colour.publish(hex);
 
   for(int i=0; i<strip.numPixels(); i++) {
     strip.setPixelColor(i, strip.Color(red,green,blue));

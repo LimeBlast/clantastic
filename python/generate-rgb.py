@@ -14,15 +14,15 @@ def main():
     mqttclient.connect(settings.MQTT_HOST, int(settings.MQTT_PORT))
     mqttclient.on_publish = on_publish
 
-    rgb = ['red', 'green', 'blue']
+    kids = ['daniel', 'jessica', 'emily']
 
     while True:
-        topic = 'rgb/{}'.format(random.choice(rgb))
+        topic = 'clantastic/{}'.format(random.choice(kids))
         payload = random.randint(0, 255)
 
         print('[MQTT] Publishing value of {} to channel {}'.format(payload, topic))
-        mqttclient.publish(topic, payload, retain=True)
-        time.sleep(0.3)
+        mqttclient.publish(topic, payload)
+        time.sleep(1)
 
 
 if __name__ == '__main__':
