@@ -130,9 +130,29 @@ void updateLEDs() {
   Serial.println(hex);
 
   colour.publish(hex);
+  int parent_start = 0;
+  int daniel_start = 2;
+  int jessica_start = 4;
+  int emily_start = 6;
 
-  for(int i=0; i<strip.numPixels(); i++) {
+  // parents
+  for(int i=parent_start; i<daniel_start; i++) {
     strip.setPixelColor(i, strip.Color(red,green,blue));
+  }
+
+  // daniel
+  for(int i=daniel_start; i<jessica_start; i++) {
+    strip.setPixelColor(i, strip.Color(0,green,0));
+  }
+
+  // jessica
+  for(int i=jessica_start; i<emily_start; i++) {
+    strip.setPixelColor(i, strip.Color(0,0,blue));
+  }
+
+  // emily
+  for(int i=emily_start; i<strip.numPixels(); i++) {
+    strip.setPixelColor(i, strip.Color(red,0,0));
   }
   strip.show();
 }
