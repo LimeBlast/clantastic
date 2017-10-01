@@ -14,7 +14,11 @@
   Written by Tony DiCola for Adafruit Industries.
   MIT license, all text above must be included in any redistribution
  ****************************************************/
-#include <ESP8266WiFi.h>
+#include <ESP8266WiFi.h>          //ESP8266 Core WiFi Library
+#include <DNSServer.h>            //Local DNS Server used for redirecting all requests to the configuration portal
+#include <ESP8266WebServer.h>     //Local WebServer used to serve the configuration portal
+#include <WiFiManager.h>          //https://github.com/tzapu/WiFiManager WiFi Configuration Magic
+
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 #include "Adafruit_NeoPixel.h"
@@ -72,24 +76,22 @@ void setup() {
   Serial.begin(115200);
   delay(10);
 
+  WiFiManager wifiManager;
+  wifiManager.setTimeout(180);
+
+  if(!wifiManager.autoConnect("AutoConnectAP")) {
+    Serial.println("failed to connect and hit timeout");
+    delay(3000);
+    ESP.reset();
+    delay(5000);
+  } 
+
+  Serial.println("connected...yeey :)");
+  Serial.println("IP address: "); Serial.println(WiFi.localIP());
+
   strip.setBrightness(BRIGHTNESS);
   strip.begin();
   updateLEDs();
- 
-  // Connect to WiFi access point.
-  Serial.println(); Serial.println();
-  Serial.print("Connecting to ");
-  Serial.println(WLAN_SSID);
-
-  WiFi.begin(WLAN_SSID, WLAN_PASS);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println();
-
-  Serial.println("WiFi connected");
-  Serial.println("IP address: "); Serial.println(WiFi.localIP());
 
   daniel.setCallback(greencallback);
   jessica.setCallback(bluecallback);
