@@ -47,7 +47,7 @@ int blue = 255;
 char hex[8] = {0};
 
 #define PIXELS_PIN 15
-#define NUM_LEDS 8
+#define NUM_LEDS 36
 #define BRIGHTNESS 100
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIXELS_PIN, NEO_GRB + NEO_KHZ800);
@@ -79,7 +79,7 @@ void setup() {
   WiFiManager wifiManager;
   wifiManager.setTimeout(180);
 
-  if(!wifiManager.autoConnect("AutoConnectAP")) {
+  if(!wifiManager.autoConnect("Clantastic")) {
     Serial.println("failed to connect and hit timeout");
     delay(3000);
     ESP.reset();
@@ -131,18 +131,13 @@ void updateLEDs() {
 
   colour.publish(hex);
   int parent_start = 0;
-  int daniel_start = 2;
-  int jessica_start = 4;
-  int emily_start = 6;
+  int jessica_start = 9;
+  int emily_start = 18;
+  int daniel_start = 27;
 
   // parents
-  for(int i=parent_start; i<daniel_start; i++) {
+  for(int i=parent_start; i<jessica_start; i++) {
     strip.setPixelColor(i, strip.Color(red,green,blue));
-  }
-
-  // daniel
-  for(int i=daniel_start; i<jessica_start; i++) {
-    strip.setPixelColor(i, strip.Color(0,green,0));
   }
 
   // jessica
@@ -151,8 +146,13 @@ void updateLEDs() {
   }
 
   // emily
-  for(int i=emily_start; i<strip.numPixels(); i++) {
+  for(int i=emily_start; i<daniel_start; i++) {
     strip.setPixelColor(i, strip.Color(red,0,0));
+  }
+
+  // daniel
+  for(int i=daniel_start; i<strip.numPixels(); i++) {
+    strip.setPixelColor(i, strip.Color(0,green,0));
   }
   strip.show();
 }
