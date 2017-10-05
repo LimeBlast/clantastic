@@ -54,19 +54,19 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIXELS_PIN, NEO_GRB + NEO_
 
 /*************************** Sketch Code ************************************/
 
-void redcallback(double x) {
+void redCallback(double x) {
   Serial.print("Red value is: ");
   Serial.println((int)x);
   red = (int)x;
 }
 
-void greencallback(double x) {
+void greenCallback(double x) {
   Serial.print("Green value is: ");
   Serial.println((int)x);
   green = (int)x;
 }
 
-void bluecallback(double x) {
+void blueCallback(double x) {
   Serial.print("Blue value is: ");
   Serial.println((int)x);
   blue = (int)x;
@@ -93,9 +93,9 @@ void setup() {
   strip.begin();
   updateLEDs();
 
-  daniel.setCallback(greencallback);
-  jessica.setCallback(bluecallback);
-  emily.setCallback(redcallback);
+  daniel.setCallback(greenCallback);
+  jessica.setCallback(blueCallback);
+  emily.setCallback(redCallback);
   
   mqtt.subscribe(&daniel);
   mqtt.subscribe(&jessica);
@@ -130,28 +130,28 @@ void updateLEDs() {
   Serial.println(hex);
 
   colour.publish(hex);
-  int parent_start = 0;
-  int jessica_start = 9;
-  int emily_start = 18;
-  int daniel_start = 27;
+  int parentStart = 0;
+  int jessicaStart = 9;
+  int emilyStart = 18;
+  int danielStart = 27;
 
   // parents
-  for(int i=parent_start; i<jessica_start; i++) {
+  for(int i=parentStart; i<jessicaStart; i++) {
     strip.setPixelColor(i, strip.Color(red,green,blue));
   }
 
   // jessica
-  for(int i=jessica_start; i<emily_start; i++) {
+  for(int i=jessicaStart; i<emilyStart; i++) {
     strip.setPixelColor(i, strip.Color(0,0,blue));
   }
 
   // emily
-  for(int i=emily_start; i<daniel_start; i++) {
+  for(int i=emilyStart; i<danielStart; i++) {
     strip.setPixelColor(i, strip.Color(red,0,0));
   }
 
   // daniel
-  for(int i=daniel_start; i<strip.numPixels(); i++) {
+  for(int i=danielStart; i<strip.numPixels(); i++) {
     strip.setPixelColor(i, strip.Color(0,green,0));
   }
   strip.show();
