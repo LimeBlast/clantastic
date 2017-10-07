@@ -37,9 +37,9 @@ def main():
         blue = range_calculator(humidity, 0, 100)
         print("Red's value is {}, green's value is {}, and blue's value is {}".format(red, green, blue))
 
-        mqttclient.publish('rgb/red', red, retain=True)
-        mqttclient.publish('rgb/green', green, retain=True)
-        mqttclient.publish('rgb/blue', blue, retain=True)
+        mqttclient.publish('Clantastic/feeds/emily', red, retain=True)
+        mqttclient.publish('Clantastic/feeds/daniel', green, retain=True)
+        mqttclient.publish('Clantastic/feeds/jessica', blue, retain=True)
         time.sleep(0.3)
 
 
