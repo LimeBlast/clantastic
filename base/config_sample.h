@@ -3,7 +3,7 @@
 /************************* MQTT Setup *********************************/
 
 #define MQTT_SERVER      "io.adafruit.com"
-#define MQTT_SERVERPORT  1883                   // use 8883 for SSL
+#define MQTT_SERVERPORT  1883
 #define MQTT_USERNAME    ""
 #define MQTT_KEY         ""
 

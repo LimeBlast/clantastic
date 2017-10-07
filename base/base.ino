@@ -34,10 +34,10 @@ Adafruit_MQTT_Client mqtt(&client, MQTT_SERVER, MQTT_SERVERPORT, MQTT_USERNAME, 
 
 /****************************** Feeds ***************************************/
 
-Adafruit_MQTT_Subscribe daniel = Adafruit_MQTT_Subscribe(&mqtt, "clantastic/daniel");
-Adafruit_MQTT_Subscribe jessica = Adafruit_MQTT_Subscribe(&mqtt, "clantastic/jessica");
-Adafruit_MQTT_Subscribe emily = Adafruit_MQTT_Subscribe(&mqtt, "clantastic/emily");
-Adafruit_MQTT_Publish colour = Adafruit_MQTT_Publish(&mqtt, "clantastic/colour");
+Adafruit_MQTT_Subscribe daniel = Adafruit_MQTT_Subscribe(&mqtt, MQTT_USERNAME "/feeds/daniel");
+Adafruit_MQTT_Subscribe jessica = Adafruit_MQTT_Subscribe(&mqtt, MQTT_USERNAME "/feeds/jessica");
+Adafruit_MQTT_Subscribe emily = Adafruit_MQTT_Subscribe(&mqtt, MQTT_USERNAME "/feeds/emily");
+Adafruit_MQTT_Publish colour = Adafruit_MQTT_Publish(&mqtt, MQTT_USERNAME "/feeds/colour");
 
 /****************************** LEDs ****************************************/
 
@@ -54,19 +54,19 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIXELS_PIN, NEO_GRB + NEO_
 
 /*************************** Sketch Code ************************************/
 
-void redCallback(double x) {
+void redcallback(double x) {
   Serial.print("Red value is: ");
   Serial.println((int)x);
   red = (int)x;
 }
 
-void greenCallback(double x) {
+void greencallback(double x) {
   Serial.print("Green value is: ");
   Serial.println((int)x);
   green = (int)x;
 }
 
-void blueCallback(double x) {
+void bluecallback(double x) {
   Serial.print("Blue value is: ");
   Serial.println((int)x);
   blue = (int)x;
@@ -93,9 +93,9 @@ void setup() {
   strip.begin();
   updateLEDs();
 
-  daniel.setCallback(greenCallback);
-  jessica.setCallback(blueCallback);
-  emily.setCallback(redCallback);
+  daniel.setCallback(greencallback);
+  jessica.setCallback(bluecallback);
+  emily.setCallback(redcallback);
   
   mqtt.subscribe(&daniel);
   mqtt.subscribe(&jessica);
