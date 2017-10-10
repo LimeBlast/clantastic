@@ -17,12 +17,12 @@ def main():
     kids = ['daniel', 'jessica', 'emily']
 
     while True:
-        topic = 'clantastic/{}'.format(random.choice(kids))
+        topic = 'Clantastic/feeds/{}'.format(random.choice(kids))
         payload = random.randint(0, 255)
 
         print('[MQTT] Publishing value of {} to channel {}'.format(payload, topic))
         mqttclient.publish(topic, payload)
-        time.sleep(1)
+        time.sleep(3)
 
 
 if __name__ == '__main__':
