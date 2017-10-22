@@ -3,6 +3,7 @@ GEM
   specs:
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    aylien_text_api (0.7.0)
     buftok (0.2.0)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
@@ -48,6 +49,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aylien_text_api
   dotenv
   mqtt
   sad_panda
