@@ -15,12 +15,15 @@ mqtt = MQTT::Client.connect(
   password: ENV['MQTT_PASSWORD'],
 )
 
-twitter = Twitter::REST::Client.new do |config|
-  config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
-  config.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET']
-  config.access_token        = ENV['TWITTER_ACCESS_TOKEN']
-  config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
-end
+twitter_config = {
+  consumer_key:        ENV['TWITTER_CONSUMER_KEY'],
+  consumer_secret:     ENV['TWITTER_CONSUMER_SECRET'],
+  access_token:        ENV['TWITTER_ACCESS_TOKEN'],
+  access_token_secret: ENV['TWITTER_ACCESS_TOKEN_SECRET']
+}
+
+rest_twitter      = Twitter::REST::Client.new(twitter_config)
+streaming_twitter = Twitter::Streaming::Client.new(twitter_config)
 
 jokes = [
   'I got myself a new robot puppy. Dogmatic.',
@@ -40,12 +43,24 @@ jokes = [
 puts "Hit ^C to terminate"
 
 begin
-  topic   = FEED_BASE + 'debug'
-  payload = jokes.sample
+  # topic   = FEED_BASE + 'debug'
+  # payload = jokes.sample
+  #
+  # mqtt.publish(topic, payload)
+  # rest_twitter.update(payload)
+  # puts payload
 
-  mqtt.publish(topic, payload)
-  twitter.update(payload)
-  puts payload
+  streaming_twitter.user do |object|
+    case object
+      when Twitter::Tweet
+        puts "It's a tweet!"
+        puts object.text
+      when Twitter::DirectMessage
+        puts "It's a direct message!"
+      when Twitter::Streaming::StallWarning
+        warn "Falling behind!"
+    end
+  end
 rescue SignalException => e
   puts "received Exception #{e}"
 end
