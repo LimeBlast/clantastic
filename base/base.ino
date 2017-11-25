@@ -76,6 +76,10 @@ void setup() {
   Serial.begin(115200);
   delay(10);
 
+  strip.setBrightness(BRIGHTNESS);
+  strip.begin();
+  updateLEDs();
+
   WiFiManager wifiManager;
   wifiManager.setTimeout(180);
 
@@ -88,10 +92,6 @@ void setup() {
 
   Serial.println("connected...yeey :)");
   Serial.println("IP address: "); Serial.println(WiFi.localIP());
-
-  strip.setBrightness(BRIGHTNESS);
-  strip.begin();
-  updateLEDs();
 
   daniel.setCallback(greencallback);
   jessica.setCallback(bluecallback);
